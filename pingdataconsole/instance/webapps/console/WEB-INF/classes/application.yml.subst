@@ -34,5 +34,10 @@ ldap:
   init-user: ${ROOT_USER}
   init-password: ${PING_IDENTITY_PASSWORD}
   #trust-store-file: ${AUTOGEN_TRUSTSTORE_FILE}
+PingData.SSO.OIDC:
+  enabled: ${PD_CONSOLE_SSO_ENABLED:-false}
+  issuer-uri: ${PD_CONSOLE_SSO_ISSUER_URI}
+  client-id: ${PD_CONSOLE_SSO_CLIENT_ID}
+  client-secret: ${PD_CONSOLE_SSO_CLIENT_SECRET}
 configuration:
   complexity: advanced
