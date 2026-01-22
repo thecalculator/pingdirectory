@@ -1,0 +1,28 @@
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  workload:
+    securityContext:
+      runAsUser: null
+      fsGroup: null
+  externalImage:
+    pingtoolkit:
+      securityContext:
+        runAsUser: null
+        fsGroup: null
+
+pingdataconsole:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+    SERVER_PROFILE_PATH: pingdataconsole
+    PD_ENGINE_PRIVATE_HOSTNAME: pingdir-pingdirectory-cluster.pingdevops.svc.cluster.local
+    PING_IDENTITY_PASSWORD: 2FederateM0re
+    PD_CONSOLE_SSO_ENABLED: "true"
+    PD_CONSOLE_SSO_ISSUER_URI: https://10.0.0.216:9031
+    PD_CONSOLE_SSO_CLIENT_ID: pd-console
+    PD_CONSOLE_SSO_CLIENT_SECRET: secret
+    PINGDATA_SSO_OIDC_TRUST_ALL: "true"
+    PINGDATA_SSO_OIDC_STRICT_HOSTNAME_VERIFICATION: "false"
+
+  
