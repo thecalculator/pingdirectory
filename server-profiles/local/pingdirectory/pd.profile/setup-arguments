@@ -1,0 +1,5 @@
+--rootUserDN cn=Directory Manager
+--rootUserPasswordFile /run/secrets/root-user-password
+--backendName userRoot
+--baseDN dc=example,dc=com
+--acceptLicense
