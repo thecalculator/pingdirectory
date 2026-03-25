@@ -11,6 +11,14 @@ global:
         runAsUser: null
         fsGroup: null
 
+
+pingdirectory:
+  enabled: true
+  envs:
+    SERVER_PROFILE_URL: https://www.github.com/pingidentity/pingidentity-server-profiles.git
+    SERVER_PROFILE_PATH: getting-started/pingdirectory
+
+
 pingdataconsole:
   enabled: true
   envs:
@@ -25,4 +33,17 @@ pingdataconsole:
     PINGDATA_SSO_OIDC_TRUST_ALL: "true"
     PINGDATA_SSO_OIDC_STRICT_HOSTNAME_VERIFICATION: "false"
 
-  
+pingdatasync:
+  enabled: true
+  image:
+    repository: pingidentity
+    name: pingdatasync        # ← Important: use 'name', not 'repository'
+    tag: "11.0.0.1-latest"   # or 10.2.0.0-latest, edge, etc.
+  # Resources (adjust based on your workload)
+  resources:
+    requests:
+      cpu: "1"
+      memory: "4Gi"
+    limits:
+      cpu: "1"
+      memory: "8Gi"
