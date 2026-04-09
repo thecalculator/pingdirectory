@@ -8,5 +8,6 @@
                 "licenseAgreementUrl": "https://${PF_ADMIN_PUBLIC_HOSTNAME}/pf-admin-api/license-agreement"
             }],
             "resourceType": "/license/agreement"
-        },
-    ]}
+        }
+    ]
+}
