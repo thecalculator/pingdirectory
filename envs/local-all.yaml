@@ -17,7 +17,18 @@ pingdirectory:
   envs:
     SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
     SERVER_PROFILE_PATH: server-profiles/local/pingdirectory
+  services:
+      ldap:
+        enabled: true
+        type: NodePort
+        port: 389
+        targetPort: 389
 
+      ldaps:
+        enabled: true
+        type: NodePort
+        port: 636
+        targetPort: 636
 
 pingdataconsole:
   enabled: true
@@ -26,7 +37,7 @@ pingdataconsole:
     SERVER_PROFILE_PATH: server-profiles/local/pingdataconsole
     PD_ENGINE_PRIVATE_HOSTNAME: pingdir-pingdirectory-cluster.pingdevops.svc.cluster.local
     PING_IDENTITY_PASSWORD: 2FederateM0re
-    PD_CONSOLE_SSO_ENABLED: "false"
+    PD_CONSOLE_SSO_ENABLED: "true"
     PD_CONSOLE_SSO_ISSUER_URI: https://10.0.0.216:9031
     PD_CONSOLE_SSO_CLIENT_ID: pd-console
     PD_CONSOLE_SSO_CLIENT_SECRET: secret
@@ -37,8 +48,8 @@ pingdatasync:
   enabled: true
   image:
     repository: pingidentity
-    name: pingdatasync        # ← Important: use 'name', not 'repository'
-    tag: "11.0.0.1-latest"   # or 10.2.0.0-latest, edge, etc.
+    name: pingdatasync      # ← Important: use 'name', not 'repository'
+    tag: "2603"   # or 10.2.0.0-latest, edge, etc.
   # Resources (adjust based on your workload)
   resources:
     requests:

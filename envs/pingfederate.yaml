@@ -1,0 +1,54 @@
+global:
+  enabled: true
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  # OpenShift Security
+  workload:
+    securityContext:
+      fsGroup: null
+      runAsUser: null
+
+  # PingToolkit for init containers
+  externalImage:
+    pingtoolkit:
+      securityContext:
+        runAsUser: null
+        fsGroup: null
+
+# ======================
+# PingFederate Admin
+# ======================
+pingfederate-admin:
+  enabled: true
+  replicaCount: 1
+  image:
+    repositoryFqn: docker.io/pingidentity/pingfederate   # Force full Docker Hub path
+    tag: "12.3.5-latest"
+    pullPolicy: IfNotPresent
+  secretVolumes:
+    pf-license:                    # name of the secret you created
+      items:
+        pingfederate.lic: /opt/in/instance/server/default/conf/pingfederate.lic
+        
+  envs:
+    #SERVER_PROFILE_URL: "https://github.com/pingidentity/pingidentity-server-profiles.git"
+    #SERVER_PROFILE_PATH: "getting-started/pingfederate"
+    OPERATIONAL_MODE: "CLUSTERED_CONSOLE"
+    PING_IDENTITY_PASSWORD: "2FederateM0re!"
+    PF_ADMIN_PUBLIC_BASEURL: "https://pf-dev-admin-pingdevops.apps-crc.testing" 
+
+
+# ======================
+# PingFederate Engine
+# ======================
+pingfederate-engine:
+  enabled: true
+  replicaCount: 2
+  image:
+    repositoryFqn: docker.io/pingidentity/pingfederate   # Force full Docker Hub path
+    tag: "12.3.5-latest"
+    pullPolicy: IfNotPresent
+  envs:
+    OPERATIONAL_MODE: "CLUSTERED_ENGINE"
+    #SERVER_PROFILE_URL: "https://github.com/pingidentity/pingidentity-server-profiles.git"
+    #SERVER_PROFILE_PATH: "getting-started/pingfederate"
