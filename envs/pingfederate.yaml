@@ -2,35 +2,40 @@ global:
   enabled: true
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
-  # OpenShift Security
   workload:
     securityContext:
       fsGroup: null
       runAsUser: null
-
-  # PingToolkit for init containers
   externalImage:
     pingtoolkit:
       securityContext:
         runAsUser: null
         fsGroup: null
 
-# ======================
-# PingFederate Admin
-# ======================
+
 pingfederate-admin:
   enabled: true
   replicaCount: 1
   image:
-    repositoryFqn: docker.io/pingidentity/pingfederate   # Force full Docker Hub path
+    repositoryFqn: docker.io/pingidentity/pingfederate   
     tag: "12.3.5-latest"
     pullPolicy: IfNotPresent
+  resources:
+      requests:
+        cpu: 0
+        memory: 1Gi
+      limits:
+        cpu: 2
+        memory: 2Gi
   secretVolumes:
-    pf-license:                    # name of the secret you created
+    pf-license:                   
       items:
         pingfederate.lic: /opt/in/instance/server/default/conf/pingfederate.lic
         
   envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+    #SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+    #SERVER_PROFILE_PATH: server-profiles/local/pingfederate
     #SERVER_PROFILE_URL: "https://github.com/pingidentity/pingidentity-server-profiles.git"
     #SERVER_PROFILE_PATH: "getting-started/pingfederate"
     OPERATIONAL_MODE: "CLUSTERED_CONSOLE"
@@ -38,17 +43,24 @@ pingfederate-admin:
     PF_ADMIN_PUBLIC_BASEURL: "https://pf-dev-admin-pingdevops.apps-crc.testing" 
 
 
-# ======================
-# PingFederate Engine
-# ======================
 pingfederate-engine:
   enabled: true
-  replicaCount: 2
+  replicaCount: 1
   image:
     repositoryFqn: docker.io/pingidentity/pingfederate   # Force full Docker Hub path
     tag: "12.3.5-latest"
     pullPolicy: IfNotPresent
+  resources:
+      requests:
+        cpu: 0
+        memory: 1Gi
+      limits:
+        cpu: 2
+        memory: 2Gi
   envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
     OPERATIONAL_MODE: "CLUSTERED_ENGINE"
+    SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+    SERVER_PROFILE_PATH: server-profiles/local/pingfederate
     #SERVER_PROFILE_URL: "https://github.com/pingidentity/pingidentity-server-profiles.git"
     #SERVER_PROFILE_PATH: "getting-started/pingfederate"
