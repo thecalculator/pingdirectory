@@ -34,8 +34,8 @@ pingfederate-admin:
         
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
-    # SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
-    # SERVER_PROFILE_PATH: server-profiles/local/pingfederate
+    SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+    SERVER_PROFILE_PATH: server-profiles/local/pingfederate
     #SERVER_PROFILE_URL: "https://github.com/pingidentity/pingidentity-server-profiles.git"
     #SERVER_PROFILE_PATH: "getting-started/pingfederate"
     OPERATIONAL_MODE: "CLUSTERED_CONSOLE"
@@ -60,7 +60,7 @@ pingfederate-engine:
   envs:
     PING_IDENTITY_ACCEPT_EULA: "YES"
     OPERATIONAL_MODE: "CLUSTERED_ENGINE"
-    # SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
-    # SERVER_PROFILE_PATH: server-profiles/local/pingfederate
+    SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+    SERVER_PROFILE_PATH: server-profiles/local/pingfederate
     #SERVER_PROFILE_URL: "https://github.com/pingidentity/pingidentity-server-profiles.git"
     #SERVER_PROFILE_PATH: "getting-started/pingfederate"
