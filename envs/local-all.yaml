@@ -12,21 +12,21 @@ global:
         fsGroup: null
 
 
-pingdirectory:
-  enabled: true
-  envs:
-  services:
-      ldap:
-        enabled: true
-        type: NodePort
-        port: 389
-        targetPort: 389
+# pingdirectory:
+#   enabled: true
+#   envs:
+#   services:
+#       ldap:
+#         enabled: true
+#         type: NodePort
+#         port: 389
+#         targetPort: 389
 
-      ldaps:
-        enabled: true
-        type: NodePort
-        port: 636
-        targetPort: 636
+#       ldaps:
+#         enabled: true
+#         type: NodePort
+#         port: 636
+#         targetPort: 636
 
 pingdataconsole:
   enabled: true
@@ -42,17 +42,17 @@ pingdataconsole:
     PINGDATA_SSO_OIDC_TRUST_ALL: "true"
     PINGDATA_SSO_OIDC_STRICT_HOSTNAME_VERIFICATION: "false"
 
-pingdatasync:
-  enabled: true
-  image:
-    repository: pingidentity
-    name: pingdatasync      # ← Important: use 'name', not 'repository'
-    tag: "2603"   # or 10.2.0.0-latest, edge, etc.
-  # Resources (adjust based on your workload)
-  resources:
-    requests:
-      cpu: "1"
-      memory: "4Gi"
-    limits:
-      cpu: "1"
-      memory: "8Gi"
+# pingdatasync:
+#   enabled: true
+#   image:
+#     repository: pingidentity
+#     name: pingdatasync      # ← Important: use 'name', not 'repository'
+#     tag: "2603"   # or 10.2.0.0-latest, edge, etc.
+#   # Resources (adjust based on your workload)
+#   resources:
+#     requests:
+#       cpu: "1"
+#       memory: "4Gi"
+#     limits:
+#       cpu: "1"
+#       memory: "8Gi"
