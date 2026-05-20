@@ -1,20 +1,23 @@
-# global:
-#   envs:
-#     PING_IDENTITY_ACCEPT_EULA: "YES"
-#   workload:
-#     securityContext:
-#       runAsUser: null
-#       fsGroup: null
-#   externalImage:
-#     pingtoolkit:
-#       securityContext:
-#         runAsUser: null
-#         fsGroup: null
+global:
+  envs:
+    PING_IDENTITY_ACCEPT_EULA: "YES"
+  workload:
+    securityContext:
+      runAsUser: null
+      fsGroup: null
+  externalImage:
+    pingtoolkit:
+      securityContext:
+        runAsUser: null
+        fsGroup: null
 
 
 pingdirectory:
   enabled: true
   envs:
+    SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+    SERVER_PROFILE_PATH: server-profiles/local/pingdirectory
+    SERVER_PROFILE_VARIABLES: variables
   services:
       ldap:
         enabled: true
@@ -57,35 +60,35 @@ pingdirectory:
 #       cpu: "1"
 #       memory: "8Gi"
 
-global:
-  workload:
-    securityContext:
-      fsGroup: null
-      runAsUser: null
-    # Global container override to force the mounts into the deployment template
-    container:
-      volumeMounts:
-        - name: nginx-lib
-          mountPath: /var/lib/nginx
-        - name: nginx-tmp
-          mountPath: /var/lib/nginx/tmp
-        - name: opt-out
-          mountPath: /opt/out
+# global:
+#   workload:
+#     securityContext:
+#       fsGroup: null
+#       runAsUser: null
+#     # Global container override to force the mounts into the deployment template
+#     container:
+#       volumeMounts:
+#         - name: nginx-lib
+#           mountPath: /var/lib/nginx
+#         - name: nginx-tmp
+#           mountPath: /var/lib/nginx/tmp
+#         - name: opt-out
+#           mountPath: /opt/out
 
-  externalImage:
-    pingtoolkit:
-      securityContext:
-        runAsUser: null
+#   externalImage:
+#     pingtoolkit:
+#       securityContext:
+#         runAsUser: null
 
-pingdelegator:
-  enabled: true
+# pingdelegator:
+#   enabled: true
   
-  # Inject the volumes at the pod level
-  pod:
-    volumes:
-      - name: nginx-lib
-        emptyDir: {}
-      - name: nginx-tmp
-        emptyDir: {}
-      - name: opt-out
-        emptyDir: {}
+#   # Inject the volumes at the pod level
+#   pod:
+#     volumes:
+#       - name: nginx-lib
+#         emptyDir: {}
+#       - name: nginx-tmp
+#         emptyDir: {}
+#       - name: opt-out
+#         emptyDir: {}
