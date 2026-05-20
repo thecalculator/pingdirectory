@@ -1,46 +1,46 @@
-global:
-  envs:
-    PING_IDENTITY_ACCEPT_EULA: "YES"
-  workload:
-    securityContext:
-      runAsUser: null
-      fsGroup: null
-  externalImage:
-    pingtoolkit:
-      securityContext:
-        runAsUser: null
-        fsGroup: null
-
-
-# pingdirectory:
-#   enabled: true
+# global:
 #   envs:
-#   services:
-#       ldap:
-#         enabled: true
-#         type: NodePort
-#         port: 389
-#         targetPort: 389
+#     PING_IDENTITY_ACCEPT_EULA: "YES"
+#   workload:
+#     securityContext:
+#       runAsUser: null
+#       fsGroup: null
+#   externalImage:
+#     pingtoolkit:
+#       securityContext:
+#         runAsUser: null
+#         fsGroup: null
 
-#       ldaps:
-#         enabled: true
-#         type: NodePort
-#         port: 636
-#         targetPort: 636
 
-pingdataconsole:
+pingdirectory:
   enabled: true
   envs:
-    SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
-    SERVER_PROFILE_PATH: server-profiles/local/pingdataconsole
-    PD_ENGINE_PRIVATE_HOSTNAME: pingdir-pingdirectory-cluster.pingdevops.svc.cluster.local
-    PING_IDENTITY_PASSWORD: 2FederateM0re
-    PD_CONSOLE_SSO_ENABLED: "true"
-    PD_CONSOLE_SSO_ISSUER_URI: https://10.0.0.216:9031
-    PD_CONSOLE_SSO_CLIENT_ID: pd-console
-    PD_CONSOLE_SSO_CLIENT_SECRET: secret
-    PINGDATA_SSO_OIDC_TRUST_ALL: "true"
-    PINGDATA_SSO_OIDC_STRICT_HOSTNAME_VERIFICATION: "false"
+  services:
+      ldap:
+        enabled: true
+        type: NodePort
+        port: 389
+        targetPort: 389
+
+      ldaps:
+        enabled: true
+        type: NodePort
+        port: 636
+        targetPort: 636
+
+# pingdataconsole:
+#   enabled: true
+#   envs:
+#     SERVER_PROFILE_URL: https://github.com/thecalculator/pingdirectory.git
+#     SERVER_PROFILE_PATH: server-profiles/local/pingdataconsole
+#     PD_ENGINE_PRIVATE_HOSTNAME: pingdir-pingdirectory-cluster.pingdevops.svc.cluster.local
+#     PING_IDENTITY_PASSWORD: 2FederateM0re
+#     PD_CONSOLE_SSO_ENABLED: "true"
+#     PD_CONSOLE_SSO_ISSUER_URI: https://10.0.0.216:9031
+#     PD_CONSOLE_SSO_CLIENT_ID: pd-console
+#     PD_CONSOLE_SSO_CLIENT_SECRET: secret
+#     PINGDATA_SSO_OIDC_TRUST_ALL: "true"
+#     PINGDATA_SSO_OIDC_STRICT_HOSTNAME_VERIFICATION: "false"
 
 # pingdatasync:
 #   enabled: true
@@ -56,3 +56,36 @@ pingdataconsole:
 #     limits:
 #       cpu: "1"
 #       memory: "8Gi"
+
+global:
+  workload:
+    securityContext:
+      fsGroup: null
+      runAsUser: null
+    # Global container override to force the mounts into the deployment template
+    container:
+      volumeMounts:
+        - name: nginx-lib
+          mountPath: /var/lib/nginx
+        - name: nginx-tmp
+          mountPath: /var/lib/nginx/tmp
+        - name: opt-out
+          mountPath: /opt/out
+
+  externalImage:
+    pingtoolkit:
+      securityContext:
+        runAsUser: null
+
+pingdelegator:
+  enabled: true
+  
+  # Inject the volumes at the pod level
+  pod:
+    volumes:
+      - name: nginx-lib
+        emptyDir: {}
+      - name: nginx-tmp
+        emptyDir: {}
+      - name: opt-out
+        emptyDir: {}

@@ -1,0 +1,4 @@
+dsconfig create-password-validator \
+    --validator-name ${name_validator}  \
+    --type length-based  \
+    --set enabled:true 
